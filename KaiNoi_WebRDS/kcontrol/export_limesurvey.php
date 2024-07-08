@@ -1,0 +1,384 @@
+<?php
+ob_start();
+session_start();
+require_once('../connections/conn_rds.php');
+require_once('../connections/utf8.php');
+
+ error_reporting( error_reporting() & ~E_NOTICE );
+
+
+     $dateregstart = "2022-02-09";
+     $dateregnow = date('Y-m-d');
+    /* echo $dateregnow;
+     exit(0);*/
+$output = '';
+
+                       if ($conn_rds->connect_error) {
+                       die("Connection failed: " . $conn_rds->connect_error);
+                       }
+                       
+          // $query = "SELECT RDSCODE,STATUSCODE,DATE_REGISTER,ISSEED,ELCIDN,ELLOC1,ELLOC2,ELCIDN2,ELCIDN3,NATION,NATION_OTH,ELKNOW,ELRECPART,ELRECMSM,ELDUP,ELCOUP,ELSXBORN,ELTGNOW,ELAGE,ELTGNOW_OTH,ELLOCZIP,ELMSMEV,ELMSMREC,ELDG,ELFRREC,ELIGIB,ISCONSENT,ISJOIN,REGMOBILE,ISQUES,PEERCODE01,PEERCODE02,PEERCODE03,PEERCODE04,PEERCODE05,PEERCODE06,OTP_ACT_QUES,OTP_ACT_TEST,DATE_INSENT_PASS,INCEETIVE_P01,INCEETIVE_P02,DATE_INSENT_NETWORK,INCENTIVE_N01,INCENTIVE_N02,INCENTIVE_N03,INCENTIVE_N04,INCENTIVE_N05,INCENTIVE_N06,IS_Agree,KNHIV,KNHIV_OTH,STATUS_LAB,HASLABTEST,NAME_REPORT,NAME_CLINIC,GET_RESULT,GET_RESULTDATE,VIRAL_LOAD,HB,HC,LAB_TESTDATE,LAB_NUMBER,DATE_INSENT_LAB,INCENTIVE_TEST,DEVICE_TYPE,BROWSER_TYPE,SC_ID,ELREGION,ELPROVINCE,ELDISTRICT,ELLOCBM,ELLOC5,T100,T200,T300,LASTUPDATE,id,token,submitdate,lastpage,startlanguage,seed,startdate,datestamp,ipaddr,refurl,663922X1X371,663922X1X2,663922X1X42,663922X1X370,663922X1X570,663922X1X1,663922X1X3,663922X1X4,663922X1X5,663922X1X43,663922X1X72,663922X1X6,663922X2X11,663922X2X7,663922X2X8,663922X2X8other,663922X3X12,663922X3X91,663922X3X92,663922X3X93,663922X3X94,663922X3X95,663922X3X96,663922X3X9other,663922X3X13APP1,663922X3X13APP2,663922X3X13APP3,663922X3X13APP4,663922X3X13APP5,663922X3X13APP6,663922X3X13APP7,663922X3X13APP8,663922X3X13APP9,663922X3X13APP10,663922X3X13other,663922X3X502,663922X3X14,663922X3X15,663922X3X16,663922X3X17,663922X3X75,663922X3X576,663922X3X577,663922X3X578,663922X3X579,663922X3X580,663922X3X504,663922X3X18,663922X4X19,663922X4X20,663922X4X21,663922X4X22,663922X8X23,663922X8X24,663922X8X439,663922X8X70,663922X8X25,663922X8X26,663922X8X71,663922X6X27,663922X6X28,663922X6X29,663922X6X74,663922X6X30,663922X9X44,663922X7X73,663922X7X31,663922X5X32,663922X5X33,663922X5X45,663922X5X35,663922X5X34,663922X5X36,663922X5X37,663922X5X38,663922X5X39 FROM lime_survey_663922 right join tbanswer on  lime_survey_663922.663922X1X2 = tbanswer.RDSCODE where STATUSCODE='QT-PASS' and startdate >= '$dateregstart' and tbanswer.RDSCODE = 'QJvby'	and tbanswer.RDSCODE = 'hNqj2'	and tbanswer.RDSCODE = 'pCraB'	and tbanswer.RDSCODE = 'ZTSFB'	and tbanswer.RDSCODE = 'qPjR5'	and tbanswer.RDSCODE = 'FxVWn'	and tbanswer.RDSCODE = '34N6z'	and tbanswer.RDSCODE = '8NEQh'	and tbanswer.RDSCODE = 'FQKJC'	and tbanswer.RDSCODE = '6nySm'	and tbanswer.RDSCODE = 'SgkkW'	and tbanswer.RDSCODE = 'aZ6w7'	and tbanswer.RDSCODE = 'f2es2'	and tbanswer.RDSCODE = '27WEG'	and tbanswer.RDSCODE = 'GWEd4'	and tbanswer.RDSCODE = 'bXd6A'	and tbanswer.RDSCODE = 'jBDSc'	and tbanswer.RDSCODE = 'fdTvH'	and tbanswer.RDSCODE = 'rcb8d'	and tbanswer.RDSCODE = 'zGME9'	and tbanswer.RDSCODE = '52yTb'	and tbanswer.RDSCODE = 'npeJV'	and tbanswer.RDSCODE = 's2hFJ'	and tbanswer.RDSCODE = 'TKCA9'	and tbanswer.RDSCODE = 'CQcQx'	and tbanswer.RDSCODE = 'KeCXh'	and tbanswer.RDSCODE = 'FQFXT'	and tbanswer.RDSCODE = 'nwcqU'	and tbanswer.RDSCODE = 'quj7m'	and tbanswer.RDSCODE = 'Eur87'	and tbanswer.RDSCODE = 'j2hxt'	and tbanswer.RDSCODE = 'Tawbp'	and tbanswer.RDSCODE = 'cW22a'	and tbanswer.RDSCODE = 'cswpR'	and tbanswer.RDSCODE = 'g844H'	and tbanswer.RDSCODE = 'PGPKz'	and tbanswer.RDSCODE = 'dc4ch'	and tbanswer.RDSCODE = 'Y8ayQ'	and tbanswer.RDSCODE = 'wFJeZ'	and tbanswer.RDSCODE = 'X7Drc'	and tbanswer.RDSCODE = 'PWHCH'	and tbanswer.RDSCODE = 'sWV8y'	and tbanswer.RDSCODE = 'H86Wx'	and tbanswer.RDSCODE = 'A255c'	and tbanswer.RDSCODE = 'KnTxY'	and tbanswer.RDSCODE = '9yz8A'	and tbanswer.RDSCODE = '6HxCr'	and tbanswer.RDSCODE = 'S8dqw'	and tbanswer.RDSCODE = 'NHarp'	and tbanswer.RDSCODE = 'J8Zwc'	and tbanswer.RDSCODE = 'hT79Q'	and tbanswer.RDSCODE = 'RMA75'	and tbanswer.RDSCODE = 'Casz5'	and tbanswer.RDSCODE = 'uDpug'	and tbanswer.RDSCODE = 'YXrrs'	and tbanswer.RDSCODE = 'DdScV'	and tbanswer.RDSCODE = 'Amrdm'	and tbanswer.RDSCODE = 'FFAU5'	and tbanswer.RDSCODE = 'AM4cZ'	and tbanswer.RDSCODE = '9gmFa'	and tbanswer.RDSCODE = 'NbH7R'	and tbanswer.RDSCODE = 'GYHx4'	and tbanswer.RDSCODE = 'JJBEA'	and tbanswer.RDSCODE = '26W9J'	and tbanswer.RDSCODE = '39u6u'	and tbanswer.RDSCODE = 'c9CXQ'	and tbanswer.RDSCODE = 'edjgX'	and tbanswer.RDSCODE = 'NckZP'	and tbanswer.RDSCODE = 'prmPm'	and tbanswer.RDSCODE = 'kT5bq'	and tbanswer.RDSCODE = 'zZgbQ'	and tbanswer.RDSCODE = 'XJjFK'	and tbanswer.RDSCODE = 'TeUVU'	and tbanswer.RDSCODE = 'vDWgc'	and tbanswer.RDSCODE = 'juTu8'	and tbanswer.RDSCODE = 'DcjBa'	and tbanswer.RDSCODE = 'MRthX'	and tbanswer.RDSCODE = '23gNn'	and tbanswer.RDSCODE = 'EE9fx'	and tbanswer.RDSCODE = 'xv2rP'	and tbanswer.RDSCODE = 'GrpYs'	and tbanswer.RDSCODE = 'rNBh5'	and tbanswer.RDSCODE = 'mBW98'	and tbanswer.RDSCODE = 'fECtd'	and tbanswer.RDSCODE = 'VaBum'	and tbanswer.RDSCODE = 'ZEjZa'	and tbanswer.RDSCODE = '63ZUa'	and tbanswer.RDSCODE = 'qS6Bd'	and tbanswer.RDSCODE = 'xBnnx'	and tbanswer.RDSCODE = '2WHXc'	and tbanswer.RDSCODE = 'EqctX'	and tbanswer.RDSCODE = 'vgDae'	and tbanswer.RDSCODE = 'UT25e'	and tbanswer.RDSCODE = 'dWjZH'	and tbanswer.RDSCODE = 'GKvBG'	and tbanswer.RDSCODE = 'TPQr8'	and tbanswer.RDSCODE = 'BPfhj'	and tbanswer.RDSCODE = 'JhXgR'	and tbanswer.RDSCODE = 'xRvtR'	and tbanswer.RDSCODE = 'Jf2XT'	and tbanswer.RDSCODE = 'VUcPz'	and tbanswer.RDSCODE = 'm8Xnn'	and tbanswer.RDSCODE = 'cPXBx'	and tbanswer.RDSCODE = 'D4gqJ'	and tbanswer.RDSCODE = '4PWFM'	and tbanswer.RDSCODE = 'sE6Uk'	and tbanswer.RDSCODE = '2Z26D'	and tbanswer.RDSCODE = 'SytFC'	and tbanswer.RDSCODE = 'r9fYp'	and tbanswer.RDSCODE = '7WDVB'	and tbanswer.RDSCODE = 'Wcbw2'	and tbanswer.RDSCODE = 'zQv73'	and tbanswer.RDSCODE = 'XV32Q'	and tbanswer.RDSCODE = 'ueDjs'	and tbanswer.RDSCODE = 'veTtn'	and tbanswer.RDSCODE = 'cSMS2'	and tbanswer.RDSCODE = 'CjcVu'	and tbanswer.RDSCODE = '8gsSZ'	and tbanswer.RDSCODE = 'sNJbA'	and tbanswer.RDSCODE = '2PKnp'	and tbanswer.RDSCODE = 'MD5d6'	and tbanswer.RDSCODE = 'r2ckx'	and tbanswer.RDSCODE = '5ZyUQ'	and tbanswer.RDSCODE = 'd8cHh'	and tbanswer.RDSCODE = 'Fgpc3'	and tbanswer.RDSCODE = '4DPbr'	and tbanswer.RDSCODE = 'tNtGv'	and tbanswer.RDSCODE = 'DQcuU'	and tbanswer.RDSCODE = 'rSPVt'	and tbanswer.RDSCODE = 'PbEes'	and tbanswer.RDSCODE = '3kAjR'	and tbanswer.RDSCODE = 'CpnDW'	and tbanswer.RDSCODE = 'QuWXe'	and tbanswer.RDSCODE = 'HYUwv'	and tbanswer.RDSCODE = 'fNPHk'	and tbanswer.RDSCODE = 'BdT8n'	and tbanswer.RDSCODE = 'w8rCm'	and tbanswer.RDSCODE = '43rNh'	and tbanswer.RDSCODE = '7FE5g'	and tbanswer.RDSCODE = 'TV5x6'	and tbanswer.RDSCODE = 'MGuxr'	and tbanswer.RDSCODE = 'UFf4m'	and tbanswer.RDSCODE = 'MsMdP'	and tbanswer.RDSCODE = 'cBJev'	and tbanswer.RDSCODE = 'skeDE'	and tbanswer.RDSCODE = 'dscYM'	and tbanswer.RDSCODE = 'DQjRf'	and tbanswer.RDSCODE = 'Xubrw'	and tbanswer.RDSCODE = 'HYJr2'	and tbanswer.RDSCODE = 'nQcj2'	and tbanswer.RDSCODE = 'eV5Ds'	and tbanswer.RDSCODE = 'CpqYf'	and tbanswer.RDSCODE = 'D2s3U'	and tbanswer.RDSCODE = 'VYgpw'	and tbanswer.RDSCODE = '39dGK'	and tbanswer.RDSCODE = 'rnGmJ'	and tbanswer.RDSCODE = 'Qygd8'	and tbanswer.RDSCODE = 'xAv8B'	and tbanswer.RDSCODE = 'WNBac'	and tbanswer.RDSCODE = 'W9xHW'	and tbanswer.RDSCODE = 'DQ5bz'	and tbanswer.RDSCODE = 'tGXaJ'	and tbanswer.RDSCODE = '2H5uu'	and tbanswer.RDSCODE = '48csP'	and tbanswer.RDSCODE = 'Fn6X4'	and tbanswer.RDSCODE = 'JH8hZ'	and tbanswer.RDSCODE = 'HUFg4'	and tbanswer.RDSCODE = 'yjBwB'	and tbanswer.RDSCODE = 'ng6uY'	and tbanswer.RDSCODE = 'xDySb'	and tbanswer.RDSCODE = 'eZkPn'	and tbanswer.RDSCODE = 'tWAc8'	and tbanswer.RDSCODE = 'zcrVs'	and tbanswer.RDSCODE = 'nr4NZ'	and tbanswer.RDSCODE = '3wzhE'	and tbanswer.RDSCODE = 'BrEzs'	and tbanswer.RDSCODE = 'YVtZv'	and tbanswer.RDSCODE = 'XXWDH'	and tbanswer.RDSCODE = 'NafMP'	and tbanswer.RDSCODE = 'Ux54j'	and tbanswer.RDSCODE = 'UURm8'	and tbanswer.RDSCODE = 'wcFEG'	and tbanswer.RDSCODE = '6PAUf'	and tbanswer.RDSCODE = '8k7DY'	and tbanswer.RDSCODE = 'gjf7v'	and tbanswer.RDSCODE = 'M4Usf'	and tbanswer.RDSCODE = 'w2ASr'	and tbanswer.RDSCODE = '2hEx2'	and tbanswer.RDSCODE = 'sp8pa'	and tbanswer.RDSCODE = '26buh'	and tbanswer.RDSCODE = 'dpsqH'	and tbanswer.RDSCODE = 'hYFr9'	and tbanswer.RDSCODE = 'eXGp2'	and tbanswer.RDSCODE = 'k9NSP'	and tbanswer.RDSCODE = '8Raec'	and tbanswer.RDSCODE = '8mdE8'	and tbanswer.RDSCODE = 'tEt4y'	and tbanswer.RDSCODE = 'wxRaD'	and tbanswer.RDSCODE = 'h8C6u'	and tbanswer.RDSCODE = 'PVdW2'	and tbanswer.RDSCODE = 'rqPy8'	and tbanswer.RDSCODE = 'mkAdP'	and tbanswer.RDSCODE = 'cePd7'	and tbanswer.RDSCODE = 'RC5PM'	and tbanswer.RDSCODE = 'HM9Mr'	and tbanswer.RDSCODE = 'wux7C'	and tbanswer.RDSCODE = '7JKpD'	and tbanswer.RDSCODE = 'Yudcs'	and tbanswer.RDSCODE = 'PG7aX'	and tbanswer.RDSCODE = 'dAkbE'	and tbanswer.RDSCODE = '7SMeu'	and tbanswer.RDSCODE = '3rKkS'	and tbanswer.RDSCODE = 'aXjQ9'	and tbanswer.RDSCODE = 'rG4Bd'	and tbanswer.RDSCODE = 'ATrfc'	and tbanswer.RDSCODE = 'PvPyP'	and tbanswer.RDSCODE = 'wrtck'	and tbanswer.RDSCODE = 'EDn45'	and tbanswer.RDSCODE = 'GABFf'	and tbanswer.RDSCODE = 'wa9Eg'	and tbanswer.RDSCODE = 'y5Quh'	and tbanswer.RDSCODE = 'cXtra'	and tbanswer.RDSCODE = '9RyRW'	and tbanswer.RDSCODE = 'B37Ar'	and tbanswer.RDSCODE = '6RjdA'	and tbanswer.RDSCODE = 'XzdSS'	and tbanswer.RDSCODE = 'bMDHU'	and tbanswer.RDSCODE = 'FqjpN'	and tbanswer.RDSCODE = '9SSfm'	and tbanswer.RDSCODE = 'cVZZ3'	and tbanswer.RDSCODE = 'ATnxD'	and tbanswer.RDSCODE = 'GCmPw'	and tbanswer.RDSCODE = 'EfZ6G'	and tbanswer.RDSCODE = 'uYv5y'	and tbanswer.RDSCODE = 'XfDr9'	and tbanswer.RDSCODE = 'aRpe7'	and tbanswer.RDSCODE = 'hXBWK'	and tbanswer.RDSCODE = 'TrqTX'	and tbanswer.RDSCODE = 'K4ftY'	and tbanswer.RDSCODE = '679fd'	and tbanswer.RDSCODE = 'u7dMr'	and tbanswer.RDSCODE = 'bJRbZ'	and tbanswer.RDSCODE = '4USKP'	and tbanswer.RDSCODE = 'htHGN'	and tbanswer.RDSCODE = 'HpHTa'	and tbanswer.RDSCODE = 'A7c6f'	and tbanswer.RDSCODE = 'BHVTc'	and tbanswer.RDSCODE = '72fC4'	and tbanswer.RDSCODE = 'jcSCY'	and tbanswer.RDSCODE = 'Cz67Q'	and tbanswer.RDSCODE = 'HHGNM'	and tbanswer.RDSCODE = '67tQR'	and tbanswer.RDSCODE = '5DMUD'	and tbanswer.RDSCODE = '9eNqX'	and tbanswer.RDSCODE = 'uae7G'	and tbanswer.RDSCODE = '9f7D9'	and tbanswer.RDSCODE = 'cqwsH'	and tbanswer.RDSCODE = 'y3vDS'	and tbanswer.RDSCODE = 'Q85M3'	and tbanswer.RDSCODE = '6vHrV'	and tbanswer.RDSCODE = 'AQsBy'	and tbanswer.RDSCODE = '4G42M'	and tbanswer.RDSCODE = 'RnZab'	and tbanswer.RDSCODE = 'ER7nH'	and tbanswer.RDSCODE = '8KQsd'	and tbanswer.RDSCODE = '2BX7J'	and tbanswer.RDSCODE = 'envCs'	and tbanswer.RDSCODE = 'W8v2S'	and tbanswer.RDSCODE = 'VhYPj'	and tbanswer.RDSCODE = 'rb9dZ'	and tbanswer.RDSCODE = 'bbCaU'	and tbanswer.RDSCODE = 'EMpeV'	and tbanswer.RDSCODE = 'UHQtG'	and tbanswer.RDSCODE = 'GvScQ'	and tbanswer.RDSCODE = 'F7FbT'	and tbanswer.RDSCODE = 's5BEG'	and tbanswer.RDSCODE = 'HZH3X'	and tbanswer.RDSCODE = '8wrYA'	and tbanswer.RDSCODE = '2EKcW'	and tbanswer.RDSCODE = 'sNnYF'	and tbanswer.RDSCODE = 'bzSjx'	and tbanswer.RDSCODE = 'CTRRM'	and tbanswer.RDSCODE = 'Jkgzm'	and tbanswer.RDSCODE = 'nua6y'	and tbanswer.RDSCODE = 'Cp8d9'	and tbanswer.RDSCODE = 'mwN8v'	and tbanswer.RDSCODE = 'J59d8'	and tbanswer.RDSCODE = 'kAYf9'	and tbanswer.RDSCODE = 'mF3ZY'	and tbanswer.RDSCODE = 'AEuKS'	and tbanswer.RDSCODE = 'pD8qU'	and tbanswer.RDSCODE = 'SsYpp'	and tbanswer.RDSCODE = '6K7n2'	and tbanswer.RDSCODE = 'zGfNB'	and tbanswer.RDSCODE = 'knY9Y'	and tbanswer.RDSCODE = 'Aawu5'	and tbanswer.RDSCODE = 'RAsTM'	and tbanswer.RDSCODE = 'cGhkv'	and tbanswer.RDSCODE = 'Q3WP6'	and tbanswer.RDSCODE = '7ZnPp'	and tbanswer.RDSCODE = 'BC339'	and tbanswer.RDSCODE = 'fDVHR'	and tbanswer.RDSCODE = 'cs73Z'	and tbanswer.RDSCODE = 'Fy3u9'	and tbanswer.RDSCODE = '36jgj'	and tbanswer.RDSCODE = 'r8PH6'	and tbanswer.RDSCODE = 'pVaxv'	and tbanswer.RDSCODE = '9Esr3'	and tbanswer.RDSCODE = 'wWmEP'	and tbanswer.RDSCODE = 'jTdc6'	and tbanswer.RDSCODE = 'FFtu3'	and tbanswer.RDSCODE = 'HddMU'	and tbanswer.RDSCODE = 'Vudew'	and tbanswer.RDSCODE = 'g6tMu'	and tbanswer.RDSCODE = 'mZUTY'	and tbanswer.RDSCODE = 'Wzs6w'	and tbanswer.RDSCODE = 'qSB4D'	and tbanswer.RDSCODE = 'CUR75'";
+          /*  $query = "SELECT id,token,submitdate,lastpage,startlanguage,seed,startdate,datestamp,ipaddr,refurl,663922X1X371,663922X1X2,663922X1X42,663922X1X370,663922X1X570,663922X1X1,663922X1X3,663922X1X4,663922X1X5,663922X1X43,663922X1X72,663922X1X6,663922X2X11,663922X2X7,663922X2X8,663922X2X8other,663922X3X12,663922X3X91,663922X3X92,663922X3X93,663922X3X94,663922X3X95,663922X3X96,663922X3X9other,663922X3X13APP1,663922X3X13APP2,663922X3X13APP3,663922X3X13APP4,663922X3X13APP5,663922X3X13APP6,663922X3X13APP7,663922X3X13APP8,663922X3X13APP9,663922X3X13APP10,663922X3X13other,663922X3X502,663922X3X14,663922X3X15,663922X3X16,663922X3X17,663922X3X75,663922X3X576,663922X3X577,663922X3X578,663922X3X579,663922X3X580,663922X3X504,663922X3X18,663922X4X19,663922X4X20,663922X4X21,663922X4X22,663922X8X23,663922X8X24,663922X8X439,663922X8X70,663922X8X25,663922X8X26,663922X8X71,663922X6X27,663922X6X28,663922X6X29,663922X6X74,663922X6X30,663922X9X44,663922X7X73,663922X7X31,663922X5X32,663922X5X33,663922X5X45,663922X5X35,663922X5X34,663922X5X36,663922X5X37,663922X5X38,663922X5X39 FROM lime_survey_663922 where  startdate >= '$dateregstart'";*/
+                      /*
+           $query = "SELECT id,token,submitdate,lastpage,startlanguage,seed,startdate,datestamp,ipaddr,refurl,663922X1X371,663922X1X2,663922X1X42,663922X1X370,663922X1X570,663922X1X1,663922X1X3,663922X1X4,663922X1X5,663922X1X43,663922X1X72,663922X1X6,663922X2X11,663922X2X7,663922X2X8,663922X2X8other,663922X3X12,663922X3X91,663922X3X92,663922X3X93,663922X3X94,663922X3X95,663922X3X96,663922X3X9other,663922X3X13APP1,663922X3X13APP2,663922X3X13APP3,663922X3X13APP4,663922X3X13APP5,663922X3X13APP6,663922X3X13APP7,663922X3X13APP8,663922X3X13APP9,663922X3X13APP10,663922X3X13other,663922X3X502,663922X3X14,663922X3X15,663922X3X16,663922X3X17,663922X3X75,663922X3X576,663922X3X577,663922X3X578,663922X3X579,663922X3X580,663922X3X504,663922X3X18,663922X4X19,663922X4X20,663922X4X21,663922X4X22,663922X8X23,663922X8X24,663922X8X439,663922X8X70,663922X8X25,663922X8X26,663922X8X71,663922X6X27,663922X6X28,663922X6X29,663922X6X74,663922X6X30,663922X9X44,663922X7X73,663922X7X31,663922X5X32,663922X5X33,663922X5X45,663922X5X35,663922X5X34,663922X5X36,663922X5X37,663922X5X38,663922X5X39 FROM lime_survey_663922 where  startdate BETWEEN '$dateregstart' and '$dateregnow'";*/
+           $result = $conn_rds->query($query);
+           //$result = mysqli_query($conn, $query);
+           $numrow = mysqli_num_rows($result);
+           if($numrow > 0)
+           {
+            
+            $output .= '
+             <table class="table" x:str border=1 cellpadding=0 cellspacing=1 width=100% style="border-collapse:collapse">
+                              <tr>  
+  <th>RDSCODE</th>
+  <th>Coupon1</th>
+  <th>Coupon2</th>
+  <th>Coupon3</th>
+  <th>NETWORK</th>
+  <th>STATUSCODE</th>
+  <th>DATE_REGISTER</th>
+  <th>ISSEED</th>
+  <th>ELCIDN</th>
+  <th>ELLOC1</th>
+  <th>ELLOC2</th>
+  <th>ELCIDN2</th>
+  <th>ELCIDN3</th>
+  <th>NATION</th>
+  <th>NATION_OTH</th>
+  <th>ELKNOW</th>
+  <th>ELRECPART</th>
+  <th>ELRECMSM</th>
+  <th>ELDUP</th>
+  <th>ELCOUP</th>
+  <th>ELSXBORN</th>
+  <th>ELTGNOW</th>
+  <th>ELAGE</th>
+  <th>ELTGNOW_OTH</th>
+  <th>ELLOCZIP</th>
+  <th>ELMSMEV</th>
+  <th>ELMSMREC</th>
+  <th>ELDG</th>
+  <th>ELFRREC</th>
+  <th>ELIGIB</th>
+  <th>ISCONSENT</th>
+  <th>ISJOIN</th>
+  <th>REGMOBILE</th>
+  <th>ISQUES</th>
+  <th>PEERCODE01</th>
+  <th>PEERCODE02</th>
+  <th>PEERCODE03</th>
+  <th>PEERCODE04</th>
+  <th>PEERCODE05</th>
+  <th>PEERCODE06</th>
+  <th>OTP_ACT_QUES</th>
+  <th>OTP_ACT_TEST</th>
+  <th>DATE_INSENT_PASS</th>
+  <th>INCEETIVE_P01</th>
+  <th>INCEETIVE_P02</th>
+  <th>DATE_INSENT_NETWORK</th>
+  <th>INCENTIVE_N01</th>
+  <th>INCENTIVE_N02</th>
+  <th>INCENTIVE_N03</th>
+  <th>INCENTIVE_N04</th>
+  <th>INCENTIVE_N05</th>
+  <th>INCENTIVE_N06</th>
+  <th>IS_Agree</th>
+  <th>KNHIV</th>
+  <th>KNHIV_OTH</th>
+  <th>STATUS_LAB</th>
+  <th>HASLABTEST</th>
+  <th>NAME_REPORT</th>
+  <th>NAME_CLINIC</th>
+  <th>GET_RESULT</th>
+  <th>GET_RESULTDATE</th>
+  <th>VIRAL_LOAD</th>
+  <th>HB</th>
+  <th>HC</th>
+  <th>LAB_TESTDATE</th>
+  <th>LAB_NUMBER</th>
+  <th>DATE_INSENT_LAB</th>
+  <th>INCENTIVE_TEST</th>
+  <th>DEVICE_TYPE</th>
+  <th>BROWSER_TYPE</th>
+  <th>SC_ID</th>
+  <th>ELREGION</th>
+  <th>ELPROVINCE</th>
+  <th>ELPROVINCE_Color</th>
+  <th>ELDISTRICT</th>
+  <th>ELLOCBM</th>
+  <th>ELLOC5</th>
+  <th>T100</th>
+  <th>T200</th>
+  <th>T300</th>
+  <th>LASTUPDATE</th>
+  <th>id</th>
+  <th>token</th>
+  <th>submitdate</th>
+  <th>lastpage</th>
+  <th>startlanguage</th>
+  <th>seed</th>
+  <th>startdate</th>
+  <th>datestamp</th>
+  <th>ipaddr</th>
+  <th>refurl</th>
+  <th>welcome</th>
+  <th>rcode</th>
+  <th>AGE</th>
+  <th>trick</th>
+  <th>ISSEED</th>
+  <th>DGBEHAV</th>
+  <th>DGWEB</th>
+  <th>DGAGE</th>
+  <th>DGSIAM</th>
+  <th>DGBKK</th>
+  <th>DGCM</th>
+  <th>DGCOUP</th>
+  <th>DEMSG</th>
+  <th>DEEDU</th>
+  <th>DEOCC</th>
+  <th>DEOCC[other]</th>
+  <th>CYMSG</th>
+  <th>CYUSE[1]</th>
+  <th>CYUSE[2]</th>
+  <th>CYUSE[3]</th>
+  <th>CYUSE[4]</th>
+  <th>CYUSE[5]</th>
+  <th>CYUSE[6]</th>
+  <th>CYUSE[other]</th>
+  <th>CYAPP[APP1]</th>
+  <th>CYAPP[APP2]</th>
+  <th>CYAPP[APP3]</th>
+  <th>CYAPP[APP4]</th>
+  <th>CYAPP[APP5]</th>
+  <th>CYAPP[APP6]</th>
+  <th>CYAPP[APP7]</th>
+  <th>CYAPP[APP8]</th>
+  <th>CYAPP[APP9]</th>
+  <th>CYAPP[APP10]</th>
+  <th>CYAPP[other]</th>
+  <th>CYAPPOTH</th>
+  <th>CYAPP1</th>
+  <th>CYAPP2</th>
+  <th>CYAPP3</th>
+  <th>CYAPP4</th>
+  <th>CYAPP5</th>
+  <th>CYAPP6</th>
+  <th>CYAPP7</th>
+  <th>CYAPP8</th>
+  <th>CYAPP9</th>
+  <th>CYAPP10</th>
+  <th>CYAPP11</th>
+  <th>CYOFF</th>
+  <th>CSMSG1</th>
+  <th>CSCTEV</th>
+  <th>CSCTNV</th>
+  <th>CSCTRS</th>
+  <th>CSCFNY</th>
+  <th>CSCFNM</th>
+  <th>CSPREP1</th>
+  <th>CSPREP2</th>
+  <th>CSPREP3</th>
+  <th>CSPREP4</th>
+  <th>CSPREP5</th>
+  <th>CSCFPY</th>
+  <th>CSCFPM</th>
+  <th>CSTRCURR</th>
+  <th>CSTRST</th>
+  <th>CSTRNV</th>
+  <th>CSCTSELF</th>
+  <th>CSBIOM</th>
+  <th>CSATT</th>
+  <th>RBMSG1</th>
+  <th>RBANDEB</th>
+  <th>RBBYSX</th>
+  <th>RBSLSX</th>
+  <th>RBPANR</th>
+  <th>RBCON</th>
+  <th>RBFEMSX</th>
+  <th>RBINJ</th>
+  <th>RBMSG2</th>
+
+                              </tr>
+            ';
+            while($row = mysqli_fetch_array($result))
+            {
+          
+             $output .= '
+              <tr>
+                     <td>'.$row["RDSCODE"].'</td>
+                     <td>'.$row["PEERCODE01"].'</td>  
+<td>'.$row["PEERCODE02"].'</td>  
+<td>'.$row["PEERCODE03"].'</td>
+<td>'.$row["663922X1X3"].'</td> 
+<td>'.$row["STATUSCODE"].'</td>  
+<td>'.$row["DATE_REGISTER"].'</td>  
+<td>'.$row["ISSEED"].'</td>  
+<td>'.$row["ELCIDN"].'</td>  
+<td>'.$row["ELLOC1"].'</td>  
+<td>'.$row["ELLOC2"].'</td>  
+<td>'.$row["ELCIDN2"].'</td>  
+<td>'.$row["ELCIDN3"].'</td>  
+<td>'.$row["NATION"].'</td>  
+<td>'.$row["NATION_OTH"].'</td>  
+<td>'.$row["ELKNOW"].'</td>  
+<td>'.$row["ELRECPART"].'</td>  
+<td>'.$row["ELRECMSM"].'</td>  
+<td>'.$row["ELDUP"].'</td>  
+<td>'.$row["ELCOUP"].'</td>  
+<td>'.$row["ELSXBORN"].'</td>  
+<td>'.$row["ELTGNOW"].'</td>  
+<td>'.$row["ELAGE"].'</td>  
+<td>'.$row["ELTGNOW_OTH"].'</td>  
+<td>'.$row["ELLOCZIP"].'</td>  
+<td>'.$row["ELMSMEV"].'</td>  
+<td>'.$row["ELMSMREC"].'</td>  
+<td>'.$row["ELDG"].'</td>  
+<td>'.$row["ELFRREC"].'</td>  
+<td>'.$row["ELIGIB"].'</td>  
+<td>'.$row["ISCONSENT"].'</td>  
+<td>'.$row["ISJOIN"].'</td>  
+<td>'.$row["REGMOBILE"].'</td>  
+<td>'.$row["ISQUES"].'</td>  
+<td>'.$row["PEERCODE01"].'</td>  
+<td>'.$row["PEERCODE02"].'</td>  
+<td>'.$row["PEERCODE03"].'</td>  
+<td>'.$row["PEERCODE04"].'</td>  
+<td>'.$row["PEERCODE05"].'</td>  
+<td>'.$row["PEERCODE06"].'</td>  
+<td>'.$row["OTP_ACT_QUES"].'</td>  
+<td>'.$row["OTP_ACT_TEST"].'</td>  
+<td>'.$row["DATE_INSENT_PASS"].'</td>  
+<td>'.$row["INCEETIVE_P01"].'</td>  
+<td>'.$row["INCEETIVE_P02"].'</td>  
+<td>'.$row["DATE_INSENT_NETWORK"].'</td>  
+<td>'.$row["INCENTIVE_N01"].'</td>  
+<td>'.$row["INCENTIVE_N02"].'</td>  
+<td>'.$row["INCENTIVE_N03"].'</td>  
+<td>'.$row["INCENTIVE_N04"].'</td>  
+<td>'.$row["INCENTIVE_N05"].'</td>  
+<td>'.$row["INCENTIVE_N06"].'</td>  
+<td>'.$row["IS_Agree"].'</td>  
+<td>'.$row["KNHIV"].'</td>  
+<td>'.$row["KNHIV_OTH"].'</td>  
+<td>'.$row["STATUS_LAB"].'</td>  
+<td>'.$row["HASLABTEST"].'</td>  
+<td>'.$row["NAME_REPORT"].'</td>  
+<td>'.$row["NAME_CLINIC"].'</td>  
+<td>'.$row["GET_RESULT"].'</td>  
+<td>'.$row["GET_RESULTDATE"].'</td>  
+<td>'.$row["VIRAL_LOAD"].'</td>  
+<td>'.$row["HB"].'</td>  
+<td>'.$row["HC"].'</td>  
+<td>'.$row["LAB_TESTDATE"].'</td>  
+<td>'.$row["LAB_NUMBER"].'</td>  
+<td>'.$row["DATE_INSENT_LAB"].'</td>  
+<td>'.$row["INCENTIVE_TEST"].'</td>  
+<td>'.$row["DEVICE_TYPE"].'</td>  
+<td>'.$row["BROWSER_TYPE"].'</td>  
+<td>'.$row["SC_ID"].'</td>  
+<td>'.$row["ELREGION"].'</td>  
+<td>'.$row["ELPROVINCE"].'</td>
+<td>'.$row["ELPROVINCE"].'</td>  
+<td>'.$row["ELDISTRICT"].'</td>  
+<td>'.$row["ELLOCBM"].'</td>  
+<td>'.$row["ELLOC5"].'</td>  
+<td>'.$row["T100"].'</td>  
+<td>'.$row["T200"].'</td>  
+<td>'.$row["T300"].'</td>  
+<td>'.$row["LASTUPDATE"].'</td>  
+<td>'.$row["id"].'</td>  
+<td>'.$row["token"].'</td>  
+<td>'.$row["submitdate"].'</td>  
+<td>'.$row["lastpage"].'</td>  
+<td>'.$row["startlanguage"].'</td>  
+<td>'.$row["seed"].'</td>  
+<td>'.$row["startdate"].'</td>  
+<td>'.$row["datestamp"].'</td>  
+<td>'.$row["ipaddr"].'</td>  
+<td>'.$row["refurl"].'</td>  
+<td>'.$row["663922X1X371"].'</td>  
+<td>'.$row["663922X1X2"].'</td>  
+<td>'.$row["663922X1X42"].'</td>  
+<td>'.$row["663922X1X370"].'</td>  
+<td>'.$row["663922X1X570"].'</td>  
+<td>'.$row["663922X1X1"].'</td>  
+<td>'.$row["663922X1X3"].'</td>  
+<td>'.$row["663922X1X4"].'</td>  
+<td>'.$row["663922X1X5"].'</td>  
+<td>'.$row["663922X1X43"].'</td>  
+<td>'.$row["663922X1X72"].'</td>  
+<td>'.$row["663922X1X6"].'</td>  
+<td>'.$row["663922X2X11"].'</td>  
+<td>'.$row["663922X2X7"].'</td>  
+<td>'.$row["663922X2X8"].'</td>  
+<td>'.$row["663922X2X8other"].'</td>  
+<td>'.$row["663922X3X12"].'</td>  
+<td>'.$row["663922X3X91"].'</td>  
+<td>'.$row["663922X3X92"].'</td>  
+<td>'.$row["663922X3X93"].'</td>  
+<td>'.$row["663922X3X94"].'</td>  
+<td>'.$row["663922X3X95"].'</td>  
+<td>'.$row["663922X3X96"].'</td>  
+<td>'.$row["663922X3X9other"].'</td>  
+<td>'.$row["663922X3X13APP1"].'</td>  
+<td>'.$row["663922X3X13APP2"].'</td>  
+<td>'.$row["663922X3X13APP3"].'</td>  
+<td>'.$row["663922X3X13APP4"].'</td>  
+<td>'.$row["663922X3X13APP5"].'</td>  
+<td>'.$row["663922X3X13APP6"].'</td>  
+<td>'.$row["663922X3X13APP7"].'</td>  
+<td>'.$row["663922X3X13APP8"].'</td>  
+<td>'.$row["663922X3X13APP9"].'</td>  
+<td>'.$row["663922X3X13APP10"].'</td>  
+<td>'.$row["663922X3X13other"].'</td>  
+<td>'.$row["663922X3X502"].'</td>  
+<td>'.$row["663922X3X14"].'</td>  
+<td>'.$row["663922X3X15"].'</td>  
+<td>'.$row["663922X3X16"].'</td>  
+<td>'.$row["663922X3X17"].'</td>  
+<td>'.$row["663922X3X75"].'</td>  
+<td>'.$row["663922X3X576"].'</td>  
+<td>'.$row["663922X3X577"].'</td>  
+<td>'.$row["663922X3X578"].'</td>  
+<td>'.$row["663922X3X579"].'</td>  
+<td>'.$row["663922X3X580"].'</td>  
+<td>'.$row["663922X3X504"].'</td>  
+<td>'.$row["663922X3X18"].'</td>  
+<td>'.$row["663922X4X19"].'</td>  
+<td>'.$row["663922X4X20"].'</td>  
+<td>'.$row["663922X4X21"].'</td>  
+<td>'.$row["663922X4X22"].'</td>  
+<td>'.$row["663922X8X23"].'</td>  
+<td>'.$row["663922X8X24"].'</td>  
+<td>'.$row["663922X8X439"].'</td>  
+<td>'.$row["663922X8X70"].'</td>  
+<td>'.$row["663922X8X25"].'</td>  
+<td>'.$row["663922X8X26"].'</td>  
+<td>'.$row["663922X8X71"].'</td>  
+<td>'.$row["663922X6X27"].'</td>  
+<td>'.$row["663922X6X28"].'</td>  
+<td>'.$row["663922X6X29"].'</td>  
+<td>'.$row["663922X6X74"].'</td>  
+<td>'.$row["663922X6X30"].'</td>  
+<td>'.$row["663922X9X44"].'</td>  
+<td>'.$row["663922X7X73"].'</td>  
+<td>'.$row["663922X7X31"].'</td>  
+<td>'.$row["663922X5X32"].'</td>  
+<td>'.$row["663922X5X33"].'</td>  
+<td>'.$row["663922X5X45"].'</td>  
+<td>'.$row["663922X5X35"].'</td>  
+<td>'.$row["663922X5X34"].'</td>  
+<td>'.$row["663922X5X36"].'</td>  
+<td>'.$row["663922X5X37"].'</td>  
+<td>'.$row["663922X5X38"].'</td>  
+<td>'.$row["663922X5X39"].'</td>  
+            </tr>
+             ';
+            }
+            $output .= '</table>';
+            header('Content-Type: application/xls');
+            header('Content-Disposition: attachment; filename=Kainoi_limesurvey.xls');
+            echo $output;
+           }
+           
+?>
